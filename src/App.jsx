@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import ProductGrid from "./components/ProductGrid";
 import Gallery from "./Gallery";
 import Filter from "./components/Filter";
+import Products from "./components/Products";
 
 const products = [
   { id: 1, title: "Smartphone", price: 699, image: "path/to/smartphone.jpg" },
@@ -28,9 +29,7 @@ function App() {
       <Header />
       <main className="grow flex bg-gray-100">
         <Filter onFilter={handleFilter} />
-        <section className="grow p-4">
-          <ProductGrid products={filteredProducts} />
-        </section>
+        <Products />
       </main>
       <Footer />
     </div>
