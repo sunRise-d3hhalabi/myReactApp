@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <header className="bg-blue-600 text-white p-4">
-      <h1>TrendyMart</h1>
+      <h1 className="text-3xl font-bold">TrendyMart!</h1>
     </header>
   );
 }
