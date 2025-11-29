@@ -1,27 +1,36 @@
-import { Suspense, use } from "react";
+// import { Suspense, use } from "react";
 // import { useEffect, useState } from "react";
 import ProductGrid from "./ProductGrid";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const fetchProducts = async () => {
   try {
     const { data } = await axios.get("https://fakestoreapi.com/products");
     return data;
   } catch (error) {
-    alert("Error fetching products!");
     console.log(error);
   }
 };
-const productsPromise = fetchProducts();
 
 export default function Products(params) {
-  const products = use(productsPromise);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+  const products = data;
+
+  if (isLoading) {
+    return <div>Loading products ...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching products ...</div>;
+  }
 
   return (
     <section className="grow p-4">
-      <Suspense fallback={<div>Loading products ...</div>}>
-        <ProductGrid products={products} />
-      </Suspense>
+      <ProductGrid products={data} />
     </section>
   );
 }

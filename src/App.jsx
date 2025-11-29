@@ -5,6 +5,10 @@ import ProductGrid from "./components/ProductGrid";
 import Gallery from "./Gallery";
 import Filter from "./components/Filter";
 import Products from "./components/Products";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   const handleFilter = (filterType) => {
@@ -20,7 +24,9 @@ function App() {
       <Header />
       <main className="grow flex bg-gray-100">
         <Filter onFilter={handleFilter} />
-        <Products />
+        <QueryClientProvider client={queryClient}>
+          <Products />
+        </QueryClientProvider>
       </main>
       <Footer />
     </div>
