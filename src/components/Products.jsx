@@ -3,6 +3,7 @@
 import ProductGrid from "./ProductGrid";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import Filter from "./Filter";
 
 const fetchProducts = async () => {
   try {
@@ -29,8 +30,9 @@ export default function Products(params) {
   }
 
   return (
-    <section className="grow p-4">
+    <main className="grow flex bg-gray-100">
+      <Filter onFilter={() => {}} />
       <ProductGrid products={data} />
-    </section>
+    </main>
   );
 }
