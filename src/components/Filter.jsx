@@ -21,10 +21,38 @@ export default function Filter({ onFilter }) {
   console.log({ data, error, isLoading });
   const categories = data;
 
+  if (isLoading) {
+    return <div>Loading categories ...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching categories ...</div>;
+  }
+
   return (
     <aside className="w-1/4 bg-white p-4 pb-4">
       <h2 className="text-lg font-semibold mb-4">Filters</h2>
-      <button
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Categories</h3>
+        <div className="flex flex-wrap gap-2">
+          <button
+            className="px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300"
+            onClick={() => onFilter({ category: "" })}
+          >
+            All products
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category}
+              className="px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 capitalize"
+              onClick={() => onFilter({ category })}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* <button
         className="block w-full px-4 py-2 my-2 text-white rounded-sm bg-blue-500"
         onClick={() => onFilter("under500")}
       >
@@ -35,7 +63,7 @@ export default function Filter({ onFilter }) {
         onClick={() => onFilter("allProducts")}
       >
         Show all products
-      </button>
+      </button> */}
     </aside>
   );
 }
